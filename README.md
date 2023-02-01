@@ -2,6 +2,13 @@
 
 Kurssimateriaalia ja esimerkkejä data-analyysin projektikurssilla.
 
+## Työkalut
+
+Ohjeet ovat enimmäkseen Ubuntu Linuxille. Useimmat ohjelmistot asennetaan
+`apt-get`-työkalulla.
+
+* [csvkit](https://csvkit.readthedocs.io/en/latest/)
+
 ## Traficomin avoin data
 
 Ajoneuvotiedot ovat [Traficomin avointa dataa](https://www.traficom.fi/fi/ajankohtaista/avoin-data?toggle=Ajoneuvojen%20avoin%20data).
