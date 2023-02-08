@@ -47,3 +47,14 @@ values = [counts[k] for k in sorted(list(counts.keys()))]
 plt.bar(sorted(list(counts.keys())), values, 
     tick_label=sorted(list(counts.keys())))
 plt.show()
+
+# HUOM.! Jos saat ilmoituksen "serWarning: Matplotlib is 
+# currently using agg, which is a non-GUI backend, so 
+# cannot show the figure.", niin ratkaisu on 
+# asentaa Tkinter: `sudo apt-get install python3-tk`
+
+
+
+
+
+
