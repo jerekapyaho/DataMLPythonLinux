@@ -10,7 +10,7 @@ for row in reader:
     rows.append(row)
 csv_file.close()
 
-years = range(2016, 2022)
+years = range(2016, 2023)
 
 counts = {}  # make empty dictionary for yearly counts
 
@@ -28,3 +28,17 @@ print(f'Sähköautojen ensirekisteröinnit {years.start} - {years.stop - 1}')
 for year in years:
     print(f'{year}: {counts[year]:>5}')
 print(f'Yhteensä: {len(rows)}')
+
+# Tee ennen tätä virtuaaliympäristö samaan hakemistoon
+# missä projekti on: `python3 -m venv venv`.
+# Aktivoi virtuaaliympäristö: `source venv/bin/activate`
+# Asenna sitten Matplotlib: `pip install matplotlib`.
+# Kun olet lopettanut projektin työstämisen, 
+# anna komento `deactivate`.
+ 
+import matplotlib.pyplot as plt
+
+values = [counts[k] for k in sorted(list(counts.keys()))]
+plt.bar(sorted(list(counts.keys())), values, 
+    tick_label=sorted(list(counts.keys())))
+plt.show()
