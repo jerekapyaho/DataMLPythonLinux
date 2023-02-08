@@ -29,13 +29,18 @@ for year in years:
     print(f'{year}: {counts[year]:>5}')
 print(f'Yhteensä: {len(rows)}')
 
+# Virtuaaliympäristöt, kts. https://realpython.com/python-virtual-environments-a-primer/
 # Tee ennen tätä virtuaaliympäristö samaan hakemistoon
 # missä projekti on: `python3 -m venv venv`.
 # Aktivoi virtuaaliympäristö: `source venv/bin/activate`
 # Asenna sitten Matplotlib: `pip install matplotlib`.
+# pip-ohjelman käyttö: kts. https://realpython.com/what-is-pip/
 # Kun olet lopettanut projektin työstämisen, 
 # anna komento `deactivate`.
- 
+
+# Kaavioiden tekeminen Matplotlib-kirjastolla, 
+# kts. https://realpython.com/python-matplotlib-guide/
+
 import matplotlib.pyplot as plt
 
 values = [counts[k] for k in sorted(list(counts.keys()))]
