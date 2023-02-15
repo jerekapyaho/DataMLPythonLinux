@@ -102,3 +102,28 @@ Sen jälkeen aja ohjelma:
 Tuloksia voi verrata esimerkiksi Tilastokeskuksen tiedotteeseen
 [Tammikuussa 2023 ensirekisteröitiin 7 175 uutta henkilöautoa](https://www.stat.fi/julkaisu/cl8cq3s51778x09w2jlxa1tyh).
 
+
+## Jääkiekkosarjan joukkueiden menestymisen seuranta
+
+Yksi hyvä datan visualisointiharjoitus voisi olla viivadiagrammin piirtäminen
+jääkiekkosarjaan osallistuvien joukkueiden sarjasijoituksista kuluvalla sarjakaudella.
+Jos käytettävissä on historiatietoa joukkuiden pistemääristä ja ajankohdista, tai
+vaikka ottelutiedot, josta nämä voidaan laskea päivän tai vaikka viikon tarkkuudella,
+niin pitäisi olla suhteellisen helppoa tehdä Matplotlib-kirjaston avulla viivadiagrammi,
+jossa on usean eri muuttujan esitys.
+
+Jos diagrammiin halutaan viikottainen tilanne, niin voidaan vaikka numeroida viikot
+sarjakauden alusta, ja sitten kirjata jokaisen viikon sarjasijoitus (tai pistemäärä)
+kyseisellä viikolla sopivaan Python-tietorakenteeseen.
+
+Dataa voisi löytyä vaikka [Leijonien](https://tulospalvelu.leijonat.fi/) tai 
+[Flashscoren](https://www.flashscore.fi/) verkkosivuilta. Kun ei ole käytössä
+rajapintaa, tiedot voidaan keräillä "web scraping" -menetelmällä, mutta se on kovin altis
+verkkosivun ajoittaisille muutoksille. Kts. Real Python, 
+[A Practical Introduction to Web Scraping in Python](https://realpython.com/python-web-scraping-practical-introduction/).
+
+## Muita avoimen datan lähteitä
+
+* [Digitraffic](https://www.digitraffic.fi/)
+* Tampereen [Journeys API](https://wiki.itsfactory.fi/index.php/Journeys_API) / ITS Factory
+* [Sotkanet](https://sotkanet.fi/sotkanet/fi/index) / [THL:n avoin data](https://thl.fi/fi/tilastot-ja-data/aineistot-ja-palvelut/avoin-data)
