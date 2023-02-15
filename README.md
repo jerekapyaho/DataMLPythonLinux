@@ -87,6 +87,9 @@ vuodelle 2023 on ennustettu lineaarisen regressiomallin avulla,
 käyttäen Scikit-learn-kirjastoa. Tämä versio on tiedostossa
 `ev_counts_regression.py`.
 
+Ennustemalli on sovellettu Real Python -sivuston artikkelista
+[Linear Regression in Python](https://realpython.com/linear-regression-in-python/).
+
 Aktivoi ensin Python-virtuaaliympäristö ja asenna Scikit-learn:
 
     source venv/bin/activate

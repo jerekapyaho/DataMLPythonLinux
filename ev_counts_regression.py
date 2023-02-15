@@ -45,9 +45,9 @@ print(f'Yhteensä: {len(all_rows)}')
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
-x_arr = []
+x_arr = []  # 0, 1, 2, ... = 2016-01, 2016-02, 2016-03...
 x_val = 0
-y_arr = []
+y_arr = []  # rekisteröintimäärät
 leftover_count = 0  # montako kuukautta on vailla dataa
 for year in years:
     # Data puuttuu viimeiseltä vuodelta.
