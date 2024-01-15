@@ -11,6 +11,72 @@ Ohjeet ovat enimmäkseen Ubuntu Linuxille. Useimmat ohjelmistot asennetaan
 `sudo apt-get install csvkit`)
 * [curl](https://curl.se/) (todennäköisesti on jo mukana Linux-asennuksessa)
 
+## Traficomin avoin data
+
+Ajoneuvotiedot ovat [Traficomin avointa dataa](https://tieto.traficom.fi/fi/tietotraficom/avoin-data).
+
+## Datan siivous
+
+Traficomin ajoneuvodata on CSV-muodossa ja pakattu ZIP-tiedostoon. Pura ZIP-paketti sopivaan
+hakemistoon `unzip`-komennolla. Dataan kuuluu myös muuttujien kuvaus, joka on Excel-tiedostossa.
+Sitä voi tarkastella Linuxissa esimerkiksi LibreOffice-ohjelmistolla.
+
+Kopioidaan alkuperäinen tiedosto ensin toiselle nimelle, jotta komennoista ei tule niin hankalia (alkuperäinen tiedosto on edelleen saatavissa Traficomin sivuilta ladatussa ZIP-paketissa):
+
+    $ cp Ajoneuvojen_avoin_data_5_21.csv ajoneuvot-original.csv
+
+Käyttämällä file-komentoa voidaan nähdä, että ajoneuvodata on Windows-rivimuodossa 
+(eli rivinvaihto on kaksi merkkiä, CR ja LF) ja se käyttää ISO 8859-1 -merkistökoodausta:
+
+    $ file ajoneuvot-original.csv
+    ajoneuvot-original.csv: ISO-8859 text, with very long lines (578), with CRLF line terminators
+
+    $ file -i ajoneuvot-original.csv 
+    ajoneuvot-original.csv: text/plain; charset=iso-8859-1
+
+Näemmä `file`-ohjelma ei kuitenkaan tunnista tiedostoa CSV:ksi, koska ei ehdota
+MIME-tyypiksi `text/csv`.
+
+Ensimmäisessä vaiheessa muunnetaan rivinvaihdot Unix-tyylisiksi
+`dos2unix`-ohjelmalla, jonka pitäisi olla valmiiksi käytettävissä Linux-asennuksessa:
+
+    $ dos2unix -v -n ajoneuvot-original.csv ajoneuvot-unix.csv
+    dos2unix: Converted 5360982 out of 5360982 line breaks.
+    dos2unix: converting file ajoneuvot-original.csv to file ajoneuvot-unix.csv in Unix format...
+
+Toisessa vaiheessa muunnetaan ISO 8859-1 -merkistökoodaus UTF-8:ksi käyttäen `iconv`-komentoa:
+
+    $ iconv -f iso-8859-1 -t utf-8 ajoneuvot-unix.csv >ajoneuvot-unix-utf8.csv
+
+Komentojen `-v`- tai `--verbose`-optiot eivät ole välttämättömiä, mutta tässä vaiheessa ne voivat olla
+hyödyllisiä (verbose = enemmän selittävää tulostusta, mikä ei Unix-komennoissa
+lähtökohtaisesti ole tapana).
+
+Lopputuloksena meillä on kolme CSV-tiedostoa: alkuperäinen, Unix-rivinvaihdoilla varustettu
+alkuperäinen sekä vielä UTF-8-merkistöksi muunnettu Unix-rivinvaihdollinen versio:
+
+    $ ls -goh --time-style=long-iso *.csv
+    -rw-rw-r-- 1 920M 2024-01-15 11:26 ajoneuvot-original.csv
+    -rw-rw-r-- 1 915M 2024-01-15 11:29 ajoneuvot-unix.csv
+    -rw-rw-r-- 1 916M 2024-01-15 11:55 ajoneuvot-unix-utf8.csv
+
+Jatkokäsittelyä varten kannattanee nimetä viimeisen vaiheen tiedosto uudelleen:
+
+    $ mv ajoneuvot-unix-utf8.csv ajoneuvot.csv
+
+Tässä repossa oleva skripti `siivous.sh` suorittaa kaikki nämä toiminnot
+yhdellä kertaa, ja poistaa vielä lopuksi välivaiheissa syntyneet tiedostot.
+
+## CSVKit ja muita työkaluja
+
+CSV-tiedostojen määritys löytyy [RFC 4180](https://www.ietf.org/rfc/rfc4180.txt):sta.
+
+Tarkastelemalla `ajoneuvot.csv`-tiedostoa `head`-komennolla nähdään, 
+että ensimmäinen rivi on otsikkorivi. Tiedosto on CSV-muotoinen, mutta
+siinä on käytetty erotinmerkkinä puolipistettä suomalaisen standardin
+mukaisesti. Jos jonkin sarakkeen arvoon sisältyy sama erotinmerkki,
+niin CSV-määrityksen mukaan sarake pitää sulkea lainausmerkkien sisään.
+
 ## Python
 
 Esimerkeissä on käytetty Pythonin versiota 3.10.6. Tarkista oma Python 3-versiosi:
@@ -46,9 +112,6 @@ Kun olet lopettanut projektin työstämisen, anna komento `deactivate`. Sen jäl
 virtuaaliympäristö näkyy komentokehotteessa, mutta voit tarkistaa tilanteen
 komennolla `which python3`.
   
-## Traficomin avoin data
-
-Ajoneuvotiedot ovat [Traficomin avointa dataa](https://www.traficom.fi/fi/ajankohtaista/avoin-data?toggle=Ajoneuvojen%20avoin%20data).
 
 ## Sähköautojen ensirekisteröintien kehitys
 
