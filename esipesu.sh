@@ -1,7 +1,9 @@
+# Aja ensin skripti siivous.sh, jotta saat siivotun
+# tiedoston ajoneuvot.csv.
+
 # Irrotetaan ensin kaikki autot joissa on käyttövoimana sähkö
 echo "Etsitään sähköautoja"
-csvgrep -d ";" -c 19 -m "04" -e iso-8859-1 \
-	TieliikenneAvoinData_5_18.csv >sahkoautot.csv
+csvgrep -d ";" -c 19 -m "04" ajoneuvot.csv >sahkoautot.csv
 
 # HUOM.! csvgrep muuntaa erotinmerkin pilkuksi, joten -d-optiota
 # ei enää tarvita seuraavissa vaiheissa.
