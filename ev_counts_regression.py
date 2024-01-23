@@ -4,7 +4,7 @@ filename = 'henkiloautot-sahko-merkit.csv'
 
 all_rows = []
 
-csv_file = open(filename, encoding='iso-8859-1')
+csv_file = open(filename)
 reader = csv.reader(csv_file)
 headers = next(reader)
 for row in reader:

@@ -10,7 +10,7 @@ for row in reader:
     rows.append(row)
 csv_file.close()
 
-years = range(2016, 2023)
+years = range(2016, 2024)
 
 counts = {}  # make empty dictionary for yearly counts
 

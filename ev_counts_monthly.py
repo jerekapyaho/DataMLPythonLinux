@@ -4,7 +4,7 @@ filename = 'henkiloautot-sahko-merkit.csv'
 
 all_rows = []
 
-csv_file = open(filename, encoding='iso-8859-1')
+csv_file = open(filename)
 reader = csv.reader(csv_file)
 headers = next(reader)
 for row in reader:
@@ -14,7 +14,7 @@ csv_file.close()
 
 print(len(all_rows))
 
-years = range(2016, 2023)
+years = range(2016, 2024)
 counts = {}
 for row in all_rows:
     if row[1] == '':  # ohita tyhjä rek. pvm
