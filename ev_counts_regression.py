@@ -14,20 +14,20 @@ csv_file.close()
 
 print(len(all_rows))
 
-years = range(2016, 2024) # nyt on 2023 mukana
+years = range(2016, 2027) # nyt on 2026 mukana
 counts = {}
 for row in all_rows:
     if row[1] == '':
         continue
-    year = int(row[1][:4])
+    year = int(row[1][6:])
     if year < years.start:
         continue
     if year not in counts:
         counts[year] = [0] * 12
-    month = int(row[1][5:7]) - 1
+    month = int(row[1][3:5]) - 1
     counts[year][month] += 1
 
-# Lisää tyhjä lista myös vuodelle 2023:
+# Lisää tyhjä lista myös vuodelle 2026:
 counts[years.stop - 1] = [0] * 12
 
 print(f'Sähköautojen ensirekisteröinnit {years.start} - {years.stop - 1}')
@@ -52,12 +52,12 @@ leftover_count = 0  # montako kuukautta on vailla dataa
 for year in years:
     # Data puuttuu viimeiseltä vuodelta.
     # Se täydennetään ennusteen tuottamalla datalla. 
-    if year == 2023:
+    if year == 2026:
         leftover_count += 12
         continue
     for month in range(12):
-        # Data puuttuu myös v. 2022 lopulta
-        if year == 2022 and month >= 6:
+        # Data puuttuu myös v. 2025 lopulta
+        if year == 2025 and month >= 9:
             leftover_count += 1
             continue
         x_arr.append(x_val)
@@ -65,11 +65,11 @@ for year in years:
         y_arr.append(counts[year][month])
 
 # Nyt x_arr sisältää arvot 0...77, missä 0 = tammikuu 2016,
-# 1 = helmikuu 2016 jne., ja 77 = kesäkuu 2022.
-# Yhteensä siis 6 * 12 + 6 = 78 kuukautta.
+# 1 = helmikuu 2016 jne., ja 116 = syyskuu 2022.
+# Yhteensä siis 9 * 12 + 9 = 117 kuukautta.
 
-# y_arr sisältää rekisteröintimäärät 1/2016 ... 6/2022.
-#print(len(y_arr)) 
+# y_arr sisältää rekisteröintimäärät 1/2016 ... 9/2025.
+print(f'Kuukausia: {len(y_arr)}')
 #print(y_arr)
 
 # NumPy-taulukot ovat hieman erilaisia kuin Pythonin listat,
@@ -117,10 +117,10 @@ for x in x_arr:
         year += 1
 
 total_count = 0
-count_2022 = 0
-count_2023 = 0
-year = 2022
-month = 6
+count_2025 = 0
+count_2026 = 0
+year = 2025
+month = 9
 #print(future_x)
 for fx in future_x:
     count = int(y_new[fx - len(x_arr)])
@@ -129,17 +129,17 @@ for fx in future_x:
     labels.append(label)
     values.append(count)  # lisätään ennustettu arvo
     print(f'{label}: {count} *')
-    if year == 2022:
-        count_2022 += count
-    if year == 2023:
-        count_2023 += count
+    if year == 2025:
+        count_2025 += count
+    if year == 2026:
+        count_2026 += count
     month += 1
     if month == 12:
         month = 0
         year += 1
-print(f'Ennuste ajalle 2022-07 - 2023-12: {total_count}')
-print(f'Ennuste loppuvuodelle 2022: {count_2022}')
-print(f'Ennuste vuodelle 2023: {count_2023}')
+print(f'Ennuste ajalle 2025-10 - 2025-12: {total_count}')
+print(f'Ennuste loppuvuodelle 2025: {count_2025}')
+print(f'Ennuste vuodelle 2026: {count_2026}')
 
 import matplotlib.pyplot as plt
 print(labels)

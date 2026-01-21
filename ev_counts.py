@@ -10,14 +10,15 @@ for row in reader:
     rows.append(row)
 csv_file.close()
 
-years = range(2016, 2024)
+years = range(2016, 2026)
 
 counts = {}  # make empty dictionary for yearly counts
 
 for row in rows:
     if row[1] == '':
         continue
-    year = int(row[1][:4])
+    # registration date is DD.MM.YYYY
+    year = int(row[1][6:])
     if year not in years:
         continue
     if year not in counts:

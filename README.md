@@ -15,6 +15,13 @@ Ohjeet ovat enimmäkseen Ubuntu Linuxille. Useimmat ohjelmistot asennetaan
 
 Ajoneuvotiedot ovat [Traficomin avointa dataa](https://tieto.traficom.fi/fi/tietotraficom/avoin-data).
 
+Datan voi ladata joko selaimella tai suoraan komentoriviltä curl-ohjelmalla,
+tallentaen tiedostoon -o-optiolla:
+
+    curl https://opendata.traficom.fi/Content/Ajoneuvorekisteri.zip -o Ajoneuvorekisteri.zip
+
+Verkko-osoite löytyy linkistä Traficomin verkkosivulta.
+
 ## Datan siivous
 
 Traficomin ajoneuvodata on CSV-muodossa ja pakattu ZIP-tiedostoon. Pura ZIP-paketti sopivaan
@@ -23,7 +30,7 @@ Sitä voi tarkastella Linuxissa esimerkiksi LibreOffice-ohjelmistolla.
 
 Kopioidaan alkuperäinen tiedosto ensin toiselle nimelle, jotta komennoista ei tule niin hankalia (alkuperäinen tiedosto on edelleen saatavissa Traficomin sivuilta ladatussa ZIP-paketissa):
 
-    $ cp Ajoneuvojen_avoin_data_5_21.csv ajoneuvot-original.csv
+    $ cp Ajoneuvojen_avoin_data_5_30.csv ajoneuvot-original.csv
 
 Käyttämällä file-komentoa voidaan nähdä, että ajoneuvodata on Windows-rivimuodossa 
 (eli rivinvaihto on kaksi merkkiä, CR ja LF) ja se käyttää ISO 8859-1 -merkistökoodausta:
@@ -43,6 +50,8 @@ Ensimmäisessä vaiheessa muunnetaan rivinvaihdot Unix-tyylisiksi
     $ dos2unix -v -n ajoneuvot-original.csv ajoneuvot-unix.csv
     dos2unix: Converted 5360982 out of 5360982 line breaks.
     dos2unix: converting file ajoneuvot-original.csv to file ajoneuvot-unix.csv in Unix format...
+
+HUOM. Datan versiossa 5.30 (tai aikaisemminkin) näyttäisi siltä, että rivinvaihdot ovat jo Unix-tyylisiä, joten edellinen vaihe on tarpeeton.
 
 Toisessa vaiheessa muunnetaan ISO 8859-1 -merkistökoodaus UTF-8:ksi käyttäen `iconv`-komentoa:
 
@@ -120,11 +129,15 @@ komentojonolla `esipesu.sh`:
 
     bash esipesu.sh
 
-Keräile rekisteröintitiedot vuosilta 2016-2021 Python-ohjelmalla
+Keräile rekisteröintitiedot vuosilta 2016-2025 Python-ohjelmalla
 `ev_counts.py`. Varmista, että esipesun tuottama tiedosto on
 samassa hakemistossa, ja aja sitten ohjelma:
 
     python3 ev_counts.py
+
+HUOM.! Datan versiossa 5.30 (mahdollisesti jo aikaisemmin) päiväykset ovat
+muotoa `PP.KK.VVVV`, joten ohjelma on päivitetty sen mukaisesti. Jos käytät
+jotain aikaisempaa datajoukkoa, ota tämä huomioon.
 
 Ohjelma pysyy käynnissä kunnes pylväsdiagrammin sisältävä
 ikkuna suljetaan.

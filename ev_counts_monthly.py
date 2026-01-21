@@ -14,17 +14,18 @@ csv_file.close()
 
 print(len(all_rows))
 
-years = range(2016, 2024)
+years = range(2016, 2026)
 counts = {}
 for row in all_rows:
     if row[1] == '':  # ohita tyhjä rek. pvm
         continue
-    year = int(row[1][:4])  # irrota rek. vuosi
+    # registration date is DD.MM.YYYY
+    year = int(row[1][6:])  # irrota rek. vuosi
     if year < years.start:  # ohita liian vanha
         continue
     if year not in counts:  # tee uusi lista vuodelle
         counts[year] = [0] * 12
-    month = int(row[1][5:7]) - 1  # irrota rek. kuukausi
+    month = int(row[1][3:5]) - 1  # irrota rek. kuukausi
     counts[year][month] += 1
 
 print(f'Sähköautojen ensirekisteröinnit {years.start} - {years.stop - 1}')

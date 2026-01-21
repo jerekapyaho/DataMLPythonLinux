@@ -1,5 +1,5 @@
 echo "*** Kopioidaan alkuperäinen tiedosto käsiteltäväksi tiedostoksi"
-cp -v Ajoneuvojen_avoin_data_5_21.csv ajoneuvot-original.csv
+cp -v Ajoneuvojen_avoin_data_5_30.csv ajoneuvot-original.csv
 
 file ajoneuvot-original.csv
 file -i ajoneuvot-original.csv
